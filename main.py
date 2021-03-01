@@ -59,17 +59,5 @@ renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 renderer.AddActor(actor)
 
-# create a text actor
-txt = vtk.vtkTextActor()
-txt.SetInput("Hello World!\nHello World!\nHello World!\nHello World!\nHello World!\nHello World!\nHello World!\n")
-txtprop=txt.GetTextProperty()
-txtprop.SetFontFamilyToArial()
-txtprop.SetFontSize(18)
-txtprop.SetColor(1,1,1)
-txt.SetDisplayPosition(20,60)
-
-renderer.AddActor(txt)
-
-
 renderWindow.Render()
 renderWindowInteractor.Start()
