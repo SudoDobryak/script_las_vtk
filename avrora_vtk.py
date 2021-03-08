@@ -61,7 +61,6 @@ renderer.AddActor(actor)
 
 # create a text actor
 txt = vtk.vtkTextActor()
-txt.SetInput("Hello World!\nHello World!\nHello World!\nHello World!\nHello World!\nHello World!\nHello World!\n")
 txtprop=txt.GetTextProperty()
 txtprop.SetFontFamilyToArial()
 txtprop.SetFontSize(18)
