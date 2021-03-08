@@ -59,6 +59,7 @@ renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 renderer.AddActor(actor)
 
+<<<<<<< HEAD:avrora_vtk.py
 # create a text actor
 txt = vtk.vtkTextActor()
 txtprop=txt.GetTextProperty()
@@ -70,5 +71,7 @@ txt.SetDisplayPosition(20,60)
 renderer.AddActor(txt)
 
 
+=======
+>>>>>>> c948ffb8ca4ae126353210e9b8b14576cdef5013:main.py
 renderWindow.Render()
 renderWindowInteractor.Start()
