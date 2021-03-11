@@ -26,7 +26,6 @@ Colors.SetNumberOfComponents(3)
 Colors.SetName("Colors")
 
 for k in range(POINT_COUNT):
-    # id = points.InsertNextPoint([inFile.x[k],inFile.y[k],inFile.z[k]])
     id = points.InsertNextPoint([coords[k][0], coords[k][1], coords[k][2]])
     vertices.InsertNextCell(1)
     vertices.InsertCellPoint(id)
@@ -57,21 +56,13 @@ renderWindow = vtk.vtkRenderWindow()
 renderWindow.AddRenderer(renderer)
 renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
+
+interactorStyle = vtk.vtkInteractorStyleFlight()
+
+
+
 renderer.AddActor(actor)
-
-<<<<<<< HEAD:avrora_vtk.py
-# create a text actor
-txt = vtk.vtkTextActor()
-txtprop=txt.GetTextProperty()
-txtprop.SetFontFamilyToArial()
-txtprop.SetFontSize(18)
-txtprop.SetColor(1,1,1)
-txt.SetDisplayPosition(20,60)
-
-renderer.AddActor(txt)
-
-
-=======
->>>>>>> c948ffb8ca4ae126353210e9b8b14576cdef5013:main.py
+interactorStyle.OnChar()
 renderWindow.Render()
+
 renderWindowInteractor.Start()
