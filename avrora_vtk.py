@@ -57,12 +57,7 @@ renderWindow.AddRenderer(renderer)
 renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 
-interactorStyle = vtk.vtkInteractorStyleFlight()
-
-
-
 renderer.AddActor(actor)
-interactorStyle.OnChar()
 renderWindow.Render()
 
 renderWindowInteractor.Start()

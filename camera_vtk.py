@@ -30,6 +30,8 @@ def main():
     renderer = vtk.vtkRenderer()
     renderer.SetActiveCamera(camera)
 
+    interactorStyle = vtk.vtkInteractorStyleFlight()
+
     renderWindow = vtk.vtkRenderWindow()
     renderWindow.AddRenderer(renderer)
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
@@ -40,9 +42,12 @@ def main():
     renderer.SetBackground(colors.GetColor3d("MistyRose"))
 
     # Render and interact
+
     renderWindowInteractor.Initialize()
+    interactorStyle.ForwardFly()
     renderWindow.Render()
     renderWindowInteractor.Start()
+
 
 
 if __name__ == '__main__':
