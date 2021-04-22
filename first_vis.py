@@ -1,35 +1,32 @@
 #!/usr/bin/env python
 
 import vtk
-import numpy as np
+
 from laspy.file import File
 inFile = File("Avrora_Part.las", mode = "r")
 
 # Количество точек
-POINT_COUNT = 900000
+POINT_COUNT = 100
 # Размер точек
-POINT_SIZE = 1
+POINT_SIZE = 5
+# Обычный массив с точками
+# pnt = []
 
-coords = np.vstack((inFile.x, inFile.y, inFile.z)).transpose()
+# for k in range(POINT_COUNT):
+#     pnt.append([inFile.x[k],inFile.y[k],inFile.z[k]])
 
-print(coords[1000][0])
+# print(inFile.x[0],inFile.y[0],inFile.z[0])
 # Create the geometry of a point (the coordinate)
 points = vtk.vtkPoints()
 
 # Create the topology of the point (a vertex)
 vertices = vtk.vtkCellArray()
 
-
-#setup colors
-Colors = vtk.vtkUnsignedCharArray()
-Colors.SetNumberOfComponents(3)
-Colors.SetName("Colors")
-
 for k in range(POINT_COUNT):
-    id = points.InsertNextPoint([coords[k][0], coords[k][1], coords[k][2]])
+    # id = points.InsertNextPoint(pnt[k])
+    id = points.InsertNextPoint([inFile.x[k],inFile.y[k],inFile.z[k]])
     vertices.InsertNextCell(1)
     vertices.InsertCellPoint(id)
-    Colors.InsertNextTuple3(255, 255, 0)
 
 # Create a polydata object
 point = vtk.vtkPolyData()
@@ -37,7 +34,7 @@ point = vtk.vtkPolyData()
 # Set the points and vertices we created as the geometry and topology of the polydata
 point.SetPoints(points)
 point.SetVerts(vertices)
-point.GetPointData().SetScalars(Colors)
+
 # Visualize
 mapper = vtk.vtkPolyDataMapper()
 if vtk.VTK_MAJOR_VERSION <= 5:
@@ -49,22 +46,26 @@ actor = vtk.vtkActor()
 actor.SetMapper(mapper)
 actor.GetProperty().SetPointSize(POINT_SIZE)
 
-
 renderer = vtk.vtkRenderer()
 renderer.SetBackground(.1, .2, .3)
+
+camera = renderer.MakeCamera()
+renderer.ResetCamera()
+camera.SetPosition(13.55115266673536, -29.350476103164837, -1.3432727339253447)
+camera.SetFocalPoint(43.55115266673536, -29.350476103164837, -1.3432727339253447)
+renderer.SetActiveCamera(camera)
+
+# camera.SetFocalPoint(0, 0, 0)
+
 renderWindow = vtk.vtkRenderWindow()
 renderWindow.AddRenderer(renderer)
 renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
-
-camera = vtk.vtkCamera()
-# camera.SetRoll(180)
-camera.SetPosition(0, 50, 50)
-camera.SetFocalPoint(0, 0, 0)
-# iteractorStyle = vtk.vtkInteractorStyleFlight()
-
 renderer.AddActor(actor)
-renderWindow.Render()
-# iteractorStyle.OnChar()
 
+# camera.SetViewUp(0, 0, 1)
+
+renderWindow.Render()
 renderWindowInteractor.Start()
+
+
